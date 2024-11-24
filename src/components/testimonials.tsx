@@ -1,3 +1,8 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import Image from 'next/image'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
@@ -26,13 +31,63 @@ const testimonials = [
 ]
 
 export function Testimonials() {
+  gsap.registerPlugin(ScrollTrigger);
+  
+  const titleRef = useRef(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Set initial states
+      gsap.set([titleRef.current, cardsRef.current?.children], {
+        opacity: 0,
+        y: 50
+      });
+
+      const commonScrollTrigger = {
+        start: "top 85%",
+        end: "bottom 15%",
+        toggleActions: "play none none reverse"
+      };
+
+      // Title animation
+      gsap.to(titleRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: "power2.out",
+        scrollTrigger: {
+          ...commonScrollTrigger,
+          trigger: titleRef.current
+        }
+      });
+
+      // Cards animation with stagger
+      if (cardsRef.current) {
+        gsap.to(cardsRef.current.children, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            ...commonScrollTrigger,
+            trigger: cardsRef.current
+          }
+        });
+      }
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section className="bg-background py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-display font-bold tracking-tight text-foreground text-center mb-12">
+        <h2 ref={titleRef} className="text-3xl font-display font-bold tracking-tight text-foreground text-center mb-12">
           What Our Customers Say
         </h2>
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <div ref={cardsRef} className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((testimonial) => (
             <Card key={testimonial.name} className="flex flex-col justify-between border bg-card text-card-foreground hover:shadow-md transition-shadow">
               <CardHeader>

@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image";
 import { ArrowRight, Zap, TrendingUp, Users } from "lucide-react";
 import Marquee from "react-fast-marquee";
@@ -12,6 +14,10 @@ import twitter from "@/assets/x.svg"
 import onlyfans from "@/assets/onlyfans.svg"
 import instagram from "@/assets/instagram.svg"
 import discord from "@/assets/discord.svg"
+
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 const companyLogos = [
   {
@@ -90,6 +96,108 @@ const companyLogos = [
 ];
 
 export function Hero() {
+  gsap.registerPlugin(ScrollTrigger);
+  
+  const headingRef = useRef(null);
+  const descriptionRef = useRef(null);
+  const featuresRef = useRef<HTMLUListElement>(null);
+  const buttonsRef = useRef<HTMLDivElement>(null);
+  const feedRef = useRef(null);
+  const imagesRef = useRef<HTMLDivElement>(null);
+  const marqueeRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Heading animation
+      gsap.from(headingRef.current, {
+        y: 60,
+        opacity: 0,
+        duration: 1,
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: "top 80%",
+        },
+      });
+
+      // Description animation
+      gsap.from(descriptionRef.current, {
+        y: 40,
+        opacity: 0,
+        duration: 1,
+        delay: 0.2,
+        scrollTrigger: {
+          trigger: descriptionRef.current,
+          start: "top 80%",
+        },
+      });
+
+      // Features list animation
+      if (featuresRef.current) {
+        gsap.from(featuresRef.current.children, {
+          x: -50,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: featuresRef.current,
+            start: "top 80%",
+          },
+        });
+      }
+
+      // Buttons animation
+      if (buttonsRef.current) {
+        gsap.from(buttonsRef.current.children, {
+          y: 30,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: buttonsRef.current,
+            start: "top 80%",
+          },
+        });
+      }
+
+      // Twitter feed animation
+      gsap.from(feedRef.current, {
+        scale: 0.8,
+        opacity: 0,
+        duration: 1,
+        scrollTrigger: {
+          trigger: feedRef.current,
+          start: "top 80%",
+        },
+      });
+
+      // Images grid animation
+      if (imagesRef.current) {
+        gsap.from(imagesRef.current.children, {
+          y: 40,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: imagesRef.current,
+            start: "top 80%",
+          },
+        });
+      }
+
+      // Marquee section animation
+      gsap.from(marqueeRef.current, {
+        opacity: 0,
+        duration: 1,
+        scrollTrigger: {
+          trigger: marqueeRef.current,
+          start: "top 90%",
+        },
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <>
       <div className="relative bg-background pt-16">
@@ -100,15 +208,15 @@ export function Hero() {
           <div className="container relative mx-auto py-14 md:px-12 lg:px-20 lg:py-24">
             <div className="grid gap-12 lg:grid-cols-2">
               <div className="space-y-8">
-                <h1 className="font-display text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-foreground">
+                <h1 ref={headingRef} className="font-display text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl text-foreground">
                   Supercharge Your Twitter Presence with{" "}
                   <span className="text-primary">TwitterKings</span>
                 </h1>
-                <p className="font-sans max-w-xl text-lg sm:text-xl text-muted-foreground">
+                <p ref={descriptionRef} className="font-sans max-w-xl text-lg sm:text-xl text-muted-foreground">
                   Automate your Twitter engagement, grow your followers, and
                   dominate your niche with our intelligent Twitter bots.
                 </p>
-                <ul className="font-sans space-y-4 text-muted-foreground">
+                <ul ref={featuresRef} className="font-sans space-y-4 text-muted-foreground">
                   <li className="flex items-center space-x-3">
                     <Zap className="h-5 w-5 text-primary" />
                     <span>Intelligent auto-engagement</span>
@@ -122,7 +230,7 @@ export function Hero() {
                     <span>Targeted follower growth</span>
                   </li>
                 </ul>
-                <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+                <div ref={buttonsRef} className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                   <Button
                     size="lg"
                     className="bg-primary text-primary-foreground hover:bg-primary/90"
@@ -140,11 +248,11 @@ export function Hero() {
                 </div>
               </div>
               <div className="space-y-8">
-                <div className="relative">
+                <div ref={feedRef} className="relative">
                   <div className="absolute inset-0 bg-primary/20 rounded-full blur-3xl" />
                   <AnimatedTwitterFeed />
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div ref={imagesRef} className="grid grid-cols-2 gap-4">
                   <div className="relative group overflow-hidden rounded-lg bg-card">
                     <Image
                       src={analytics}
@@ -181,7 +289,7 @@ export function Hero() {
       </div>
 
       {/* Marquee section */}
-      <div className="w-full border-y border-border/50 bg-background/50 backdrop-blur-sm py-12">
+      <div ref={marqueeRef} className="w-full border-y border-border/50 bg-background/50 backdrop-blur-sm py-12">
         <Container variant={"fullMobileBreakpointPadded"}>
           <div className="text-center mb-8">
             <p className="text-muted-foreground font-display text-sm">
