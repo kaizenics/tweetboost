@@ -7,24 +7,24 @@ import {
   
   const faqs = [
     {
-      question: "How does TweetBoost ensure my Twitter account stays safe?",
-      answer: "TweetBoost operates within Twitter's API guidelines and terms of service. We use secure authentication methods and never store your Twitter password. Our AI-powered system is designed to mimic natural human behavior, reducing the risk of account suspension."
+      question: "How does TwitterKings ensure my Twitter account stays safe?",
+      answer: "TwitterKings operates within Twitter's API guidelines and terms of service. We use secure authentication methods and never store your Twitter password. Our AI-powered system is designed to mimic natural human behavior, reducing the risk of account suspension."
     },
     {
-      question: "Can I customize the content my TweetBoost bot shares?",
-      answer: "TweetBoost allows you to set custom parameters for content curation, including keywords, hashtags, and specific accounts to engage with. You can also upload your own content for the bot to share."
+      question: "Can I customize the content my TwitterKings bot shares?",
+      answer: "TwitterKings allows you to set custom parameters for content curation, including keywords, hashtags, and specific accounts to engage with. You can also upload your own content for the bot to share."
     },
     {
       question: "How quickly can I expect to see results?",
-      answer: "While results can vary depending on your niche and existing audience, most users see a noticeable increase in engagement within the first 2-4 weeks. For optimal results, we recommend using TweetBoost consistently for at least 3 months."
+      answer: "While results can vary depending on your niche and existing audience, most users see a noticeable increase in engagement within the first 2-4 weeks. For optimal results, we recommend using TwitterKings consistently for at least 3 months."
     },
     {
-      question: "Is there a limit to how many Twitter accounts I can manage with TweetBoost?",
+      question: "Is there a limit to how many Twitter accounts I can manage with TwitterKings?",
       answer: "The number of accounts you can manage depends on your subscription plan. Our Starter plan allows for 1 account, Pro plan for 3 accounts, and Enterprise plan for unlimited accounts. You can upgrade your plan at any time as your needs grow."
     },
     {
       question: "What kind of support do you offer?",
-      answer: "We offer email support for all plans, with priority support for Pro users and 24/7 dedicated support for Enterprise customers. Our knowledge base is also available to all users, providing guides and best practices for using TweetBoost effectively."
+      answer: "We offer email support for all plans, with priority support for Pro users and 24/7 dedicated support for Enterprise customers. Our knowledge base is also available to all users, providing guides and best practices for using TwitterKings effectively."
     }
   ]
   
